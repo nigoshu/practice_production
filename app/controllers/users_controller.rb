@@ -13,11 +13,20 @@ class UsersController < ApplicationController
       name: params[:name],
       email: params[:email]
       )
-    @user.save
+    if @user.save
+      flash[:notice] = "登録が完了しました！"
     redirect_to("/#{@user.id}")
+    else
+      render("/new")
+    end
   end
   
+  def edit 
+    @user = User.find_by(id: params[:id])
+  end
   
-  
+  def eupdate
+    
+  end
   
 end
