@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   
+  #現在showアクションはTOPページのリンクからジャンプするとユーザーIDを拾えないのでエラーになります。
   def show
     @user = User.find_by(id: params[:id])
   end
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
       email: params[:email]
       )
     if @user.save
-      flash[:notice] = "登録が完了しました！"
+      flash[:notice] = "登録が完了しました"
     redirect_to("/#{@user.id}")
     else
       render("/new")
@@ -25,8 +26,16 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
   
-  def eupdate
-    
+  def update
+    @user = User.find_by(id: params[:id])
+    @user.name = params[:name]
+    @user.emal = params[:email]
+    if @user.save
+      flash[:notice] = "ユーザー情報を編集しました"
+      redirect_to("/users/#{@user.id}")
+    else
+      render("/#{@user.id}/edit")
+    end
   end
   
 end
