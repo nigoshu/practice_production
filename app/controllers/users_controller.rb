@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   
+  def show
+    @user = User.find_by(id: params[:id])
+  end
+  
   def new
     @user = User.new
   end
@@ -10,7 +14,7 @@ class UsersController < ApplicationController
       email: params[:email]
       )
     @user.save
-    redirect_to("")
+    redirect_to("/#{@user.id}")
   end
   
   
